@@ -1,25 +1,372 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Nithu Seervi T | Portfolio</title>
-    <meta name="description" content="Portfolio of Nithu Seervi T - Student & Aspiring Web Developer" />
-    <meta name="author" content="Nithu Seervi T" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nithu Seervi T | Portfolio</title>
 
-    <meta property="og:title" content="Nithu Seervi T | Portfolio" />
-    <meta property="og:description" content="Student & Aspiring Web Developer" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="" />
-  </head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+body{
+    background:#fff0f6;
+    overflow-x:hidden;
+    color:#333;
+}
+
+/* ========= BACKGROUND ANIMATION ========= */
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+    overflow:hidden;
+}
+.bubble{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,79,129,0.25);
+    animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+    from{
+        transform:translateY(100vh) scale(0);
+        opacity:0;
+    }
+    to{
+        transform:translateY(-20vh) scale(1);
+        opacity:1;
+    }
+}
+
+/* NAV */
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    display:flex;
+    justify-content:center;
+    padding:15px;
+    z-index:1000;
+}
+nav a{
+    margin:0 15px;
+    text-decoration:none;
+    color:#ff4f81;
+    font-weight:600;
+    transition:.3s;
+}
+nav a:hover{color:#222;}
+
+section{
+    padding:90px 10%;
+    min-height:100vh;
+}
+
+/* HERO */
+.hero{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+}
+.hero img{
+    width:280px;
+    border-radius:50%;
+    border:6px solid #ff4f81;
+    animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+}
+.hero-text h1{
+    font-size:42px;
+    color:#ff4f81;
+}
+.hero-text p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* HEADINGS */
+h2{
+    text-align:center;
+    color:#ff4f81;
+    margin-bottom:30px;
+    font-size:32px;
+}
+
+/* ABOUT */
+.about{
+    text-align:center;
+    line-height:1.8;
+}
+
+/* SKILLS */
+.skills-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+.skill{
+    background:white;
+    padding:15px 25px;
+    border-radius:30px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+    transition:.3s;
+}
+.skill:hover{
+    transform:scale(1.1);
+}
+
+/* CERTIFICATIONS */
+.cert-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+.cert{
+    background:white;
+    padding:10px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+    cursor:pointer;
+    transition:.3s;
+}
+.cert:hover{
+    transform:translateY(-8px);
+}
+.cert img{
+    width:100%;
+    border-radius:10px;
+}
+.cert p{
+    text-align:center;
+    margin-top:10px;
+    font-weight:600;
+}
+
+/* POPUP */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,.75);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+.popup img{
+    width:85%;
+    max-width:700px;
+    border-radius:12px;
+}
+.popup span{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
+
+/* CONTACT */
+.contact-icons{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+}
+.contact-icons a{
+    font-size:35px;
+    color:#ff4f81;
+    transition:.3s;
+}
+.contact-icons a:hover{
+    transform:scale(1.2);
+}
+
+/* FEEDBACK */
+.feedback{
+    text-align:center;
+}
+.feedback input,.feedback textarea{
+    width:100%;
+    max-width:500px;
+    margin:10px auto;
+    display:block;
+    padding:12px;
+    border:2px solid #ffb3c6;
+    border-radius:10px;
+}
+.feedback button{
+    background:#ff4f81;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:.3s;
+}
+.feedback button:hover{
+    background:#e63b6d;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#ff4f81;
+    color:white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.hero-text h1{font-size:30px;}
+.hero img{width:200px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background" id="bg"></div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#cert">Certification</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+<div class="hero">
+<img src="https://i.pravatar.cc/300" alt="Profile">
+<div class="hero-text">
+<h1>Nithu Seervi T</h1>
+<p>Creative Developer ✨ | Dreamer 💖 | Tech Enthusiast</p>
+</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<div class="about">
+<p>
+Hi! I am Nithu Seervi T, a passionate developer who loves creating beautiful and lovable websites with smooth animations and modern UI.
+</p>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<h2>Skills</h2>
+<div class="skills-container">
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">UI Design</div>
+<div class="skill">Responsive Design</div>
+</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="cert">
+<h2>Certifications</h2>
+
+<div class="cert-grid">
+<div class="cert" onclick="openPopup(this)">
+<img src="https://via.placeholder.com/500x300.png?text=AWS+Certificate" alt="">
+<p>AWS Certificate</p>
+</div>
+
+<div class="cert" onclick="openPopup(this)">
+<img src="https://via.placeholder.com/500x300.png?text=Web+Development" alt="">
+<p>Web Development</p>
+</div>
+
+<div class="cert" onclick="openPopup(this)">
+<img src="https://via.placeholder.com/500x300.png?text=JavaScript+Certificate" alt="">
+<p>JavaScript Certificate</p>
+</div>
+</div>
+</section>
+
+<div class="popup" id="popup">
+<span onclick="closePopup()">&times;</span>
+<img id="popup-img">
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Get In Touch</h2>
+<div class="contact-icons">
+<a href="#"><i class="fab fa-github"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="mailto:example@gmail.com"><i class="fas fa-envelope"></i></a>
+</div>
+</section>
+
+<!-- FEEDBACK -->
+<section>
+<h2>Feedback</h2>
+<div class="feedback">
+<input type="text" placeholder="Your Name">
+<textarea rows="5" placeholder="Your Feedback"></textarea>
+<button>Send Feedback</button>
+</div>
+</section>
+
+<footer>
+© 2026 Nithu Seervi T | Portfolio
+</footer>
+
+<script>
+/* POPUP */
+function openPopup(el){
+    document.getElementById("popup").style.display="flex";
+    document.getElementById("popup-img").src =
+        el.querySelector("img").src;
+}
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+/* BACKGROUND BUBBLES */
+const bg = document.getElementById("bg");
+
+for(let i=0;i<25;i++){
+    let bubble=document.createElement("div");
+    bubble.className="bubble";
+
+    let size=Math.random()*60+20;
+    bubble.style.width=size+"px";
+    bubble.style.height=size+"px";
+    bubble.style.left=Math.random()*100+"%";
+    bubble.style.animationDuration=(Math.random()*10+8)+"s";
+    bubble.style.animationDelay=(Math.random()*5)+"s";
+
+    bg.appendChild(bubble);
+}
+</script>
+
+</body>
 </html>
